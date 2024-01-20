@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+#test commit
 @onready var animation_tree : AnimationTree = $AnimationTree
 var spriteArray = ["igor", "arno", "gallant", "weldon"]
 var spriteIndex = 0
