@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CharacterClass" load_steps=2 format=3 uid="uid://d1cpkh0dejn01"]
+
+[ext_resource type="Script" path="res://CharacterClass.gd" id="1_0p4se"]
+
+[resource]
+script = ExtResource("1_0p4se")
+className = "Weldon"
+sprite = "SrpitePath"
+constitution = 10
+strength = 10
+dexterity = 10
+intelligence = 10
+wisdom = 10
+charisma = 10
+armor_class = 14
+feats = Array[String]([])
+weapons = Array[String]([])
+passives = Array[String]([])

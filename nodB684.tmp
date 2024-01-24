@@ -1,0 +1,167 @@
+[gd_scene load_steps=26 format=3 uid="uid://cpeepqnu2u206"]
+
+[ext_resource type="Script" path="res://player_script.gd" id="1_foqnm"]
+[ext_resource type="Texture2D" uid="uid://pbt4owi3dbg7" path="res://player_sprites/igor.png" id="2_umx2b"]
+[ext_resource type="Script" path="res://Character.gd" id="3_a6qxd"]
+[ext_resource type="Resource" uid="uid://bpc6a7h1fffu" path="res://Characters/Gallant.tres" id="4_5hiof"]
+[ext_resource type="Script" path="res://Stats.gd" id="5_xv1p7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4at3"]
+size = Vector2(8, 13)
+
+[sub_resource type="Animation" id="Animation_4hyb1"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 4, 6, 8, 10]
+}
+
+[sub_resource type="Animation" id="Animation_6ghx0"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 3, 5, 7, 9, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tkj11"]
+_data = {
+"idle": SubResource("Animation_4hyb1"),
+"walk": SubResource("Animation_6ghx0")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_57wd7"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rgmkf"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yp4fe"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lwwju"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_smwqv"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bya8w"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qyjjd"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_57wd7")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_rgmkf")
+blend_point_1/pos = Vector2(0, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_yp4fe")
+blend_point_2/pos = Vector2(-1, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_lwwju")
+blend_point_3/pos = Vector2(-1, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_smwqv")
+blend_point_4/pos = Vector2(1, -1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_bya8w")
+blend_point_5/pos = Vector2(1, 1)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fg4g4"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dvk73"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r1sgy"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1hb5n"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_rsfry"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_fg4g4")
+blend_point_0/pos = Vector2(1, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_dvk73")
+blend_point_1/pos = Vector2(1, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_r1sgy")
+blend_point_2/pos = Vector2(-1, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_1hb5n")
+blend_point_3/pos = Vector2(-1, 1)
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dqhfi"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6j0yr"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jcn0o"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0vtlj"]
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_qyjjd")
+states/Idle/position = Vector2(337, 100)
+states/Walk/node = SubResource("AnimationNodeBlendSpace2D_rsfry")
+states/Walk/position = Vector2(562, 102)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dqhfi"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_6j0yr"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_jcn0o")]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_foqnm")
+
+[node name="DefaultSprite" type="Sprite2D" parent="Player"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("2_umx2b")
+hframes = 2
+vframes = 6
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_n4at3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+root_node = NodePath("../DefaultSprite")
+libraries = {
+"": SubResource("AnimationLibrary_tkj11")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Player"]
+root_node = NodePath("../DefaultSprite")
+libraries = {
+"": SubResource("AnimationLibrary_tkj11")
+}
+tree_root = SubResource("AnimationNodeStateMachine_0vtlj")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_idle = true
+parameters/conditions/is_moving = false
+parameters/Idle/blend_position = Vector2(0.0571955, 0.365079)
+parameters/Walk/blend_position = Vector2(0, 0)
+
+[node name="Character" type="Node" parent="Player"]
+script = ExtResource("3_a6qxd")
+base_stats = ExtResource("4_5hiof")
+
+[node name="Stats" type="Node" parent="Player/Character"]
+script = ExtResource("5_xv1p7")
+
+[node name="Background" type="Sprite2D" parent="."]

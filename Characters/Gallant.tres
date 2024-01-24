@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BaseStats" load_steps=2 format=3 uid="uid://bpc6a7h1fffu"]
+
+[ext_resource type="Script" path="res://CharacterClass.gd" id="1_ms3v4"]
+
+[resource]
+script = ExtResource("1_ms3v4")
+className = "Gallant"
+constitution = 10
+strength = 18
+dexterity = 10
+intelligence = 10
+wisdom = 10
+charisma = 18
+armor_class = 18
