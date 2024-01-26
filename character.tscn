@@ -60,6 +60,8 @@ script = ExtResource("2_tvnsr")
 motion_mode = 1
 script = ExtResource("3_frkct")
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
 [node name="DefaultSprite" type="Sprite2D" parent="Player"]
 texture_filter = 1
 scale = Vector2(5, 5)
